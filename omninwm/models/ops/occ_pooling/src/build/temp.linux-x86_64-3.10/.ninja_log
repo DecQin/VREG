@@ -1,0 +1,3 @@
+# ninja log v7
+0	1322	1773109730268887409	/data1/qjyuan/OmniNWM/omninwm/models/ops/occ_pooling/src/build/temp.linux-x86_64-3.10/occ_pool_cuda.o	e37e99cdda453eb5
+0	21076	1773109730268887409	/data1/qjyuan/OmniNWM/omninwm/models/ops/occ_pooling/src/build/temp.linux-x86_64-3.10/occ_pool.o	5cbef13f3e25e17b
