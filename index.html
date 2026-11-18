@@ -1,38 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow,noarchive">
-<title>V-REG | Supplementary Results</title>
-<style>
-:root{color-scheme:light;--ink:#172a2a;--muted:#4a6262;--rule:#cedbd5;--accent:#146655;--paper:#f6f8f4}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,sans-serif}main{max-width:920px;margin:auto;padding:64px 24px}header{padding-bottom:30px;border-bottom:1px solid var(--rule)}h1,h2,p{margin:0}h1{font:700 clamp(44px,9vw,76px)/1 system-ui;letter-spacing:-.08em}h2{font-size:25px;letter-spacing:-.035em;margin-bottom:12px}header p{margin-top:14px;color:var(--muted);max-width:600px}nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px}a{color:var(--accent);text-underline-offset:4px}section{margin-top:36px}.panel{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:20px;overflow:auto}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--rule)}th:not(:first-child),td:not(:first-child){text-align:right;white-space:nowrap}tbody tr:last-child td{border-bottom:0}tr.result{color:#104e42;background:#e6f2ec}.note{color:var(--muted);font-size:14px;margin-top:12px}footer{margin-top:44px;border-top:1px solid var(--rule);padding-top:14px;color:var(--muted);font-size:14px}@media(max-width:520px){main{padding:34px 15px}.panel{padding:12px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>V-REG | Anonymous Project Page</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #202a30; background: #fff;
+           font: 16px/1.65 system-ui, sans-serif; }
+    main { max-width: 1040px; margin: auto; padding: 0 24px 64px; }
+    header { text-align: center; padding: 64px 0 36px;
+             border-bottom: 1px solid #dbe5e1; }
+    h1 { margin: 0 auto; max-width: 900px;
+         font-size: clamp(30px, 5vw, 52px); line-height: 1.15; }
+    header p, figcaption { color: #54666b; }
+    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    nav a { color: #145d4d; background: #edf5f1; padding: 6px 13px;
+            border-radius: 20px; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    section { margin: 44px 0; }
+    figure { margin: 0 0 24px; text-align: center; }
+    img, video { display: block; max-width: 100%; height: auto; margin: auto; }
+    figcaption { margin-top: 8px; }
+    .table-wrap { overflow-x: auto; margin-bottom: 28px; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { padding: 10px 14px; text-align: right; border-bottom: 1px solid #dbe5e1; }
+    th:first-child, td:first-child { text-align: left; }
+    thead { background: #f2f6f4; }
+    .ours { background: #e9f4ee; }
+  </style>
 </head>
-<body><main>
-<header><h1>V-REG</h1><p>Supplementary results for anonymous review</p>
-<nav aria-label="Results"><a href="#quality">Generation quality</a><a href="#control">Scene controllability</a></nav></header>
-<section id="quality"><h2>Generation quality on nuScenes</h2><div class="panel">
-<table><thead><tr><th scope="col">Method</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead><tbody>
-<tr><td>MaskGWM (multi-view)</td><td>8.90</td><td>65.40</td></tr>
-<tr><td>UniMLVG</td><td><strong>5.80</strong></td><td><strong>36.10</strong></td></tr>
-<tr><td>MoVieDrive</td><td>—</td><td>46.80</td></tr>
-<tr><td>V-REG (submitted)</td><td>8.98</td><td>98.75</td></tr>
-<tr class="result"><td>V-REG (corrected inference)</td><td><u>7.59</u></td><td><u>43.38</u></td></tr>
-</tbody></table></div></section>
-<section id="control"><h2>Scene controllability on nuScenes</h2><div class="panel">
-<table><thead><tr><th scope="col">Method</th><th scope="col">Synthesis resolution</th><th scope="col">3D Detection mAP ↑</th><th scope="col">BEV Segmentation mIoU ↑</th></tr></thead><tbody>
-<tr><td>MagicDrive</td><td>224×400</td><td>9.70</td><td>15.60</td></tr>
-<tr><td>MagicDrive-V2</td><td>224×400</td><td>11.50</td><td>17.40</td></tr>
-<tr><td>MoVieDrive</td><td>512×256</td><td><u>22.70</u></td><td><strong>35.80</strong></td></tr>
-<tr class="result"><td>V-REG (ours)</td><td>448×800</td><td><strong>22.74</strong></td><td><u>35.31</u></td></tr>
-</tbody></table>
-</div></section>
-<!-- Optional: upload an anonymized result clip to assets/scene-01.mp4,
-then remove the comment markers around this block.
-<section id="videos"><h2>Qualitative results</h2>
-<video controls playsinline preload="metadata" style="width:100%" src="assets/scene-01.mp4"></video>
-</section>
--->
-</main></body></html>
+<body>
+<main>
+  <header>
+    <h1>V-REG: Visual Representation Guidance for Training-Efficient Multi-View Driving Video Generation</h1>
+    <p>Anonymous Authors</p>
+    <nav aria-label="Project sections">
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Framework</a>
+      <a href="#examples">Qualitative Results</a>
+      <a href="#results">Quantitative Results</a>
+    </nav>
+  </header>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>V-REG guides a multi-view video diffusion transformer with frozen DINOv3 representations. It matches each representation to the corresponding frame and camera view for condition injection and intermediate feature alignment. The model jointly generates RGB, depth, and semantic videos, and uses an attention cache during autoregressive generation.</p>
+  </section>
+
+  <section id="method">
+    <h2>Framework</h2>
+    <figure>
+      <img src="assets/framework.png" alt="Architecture of V-REG">
+    </figure>
+  </section>
+
+  <section id="examples">
+    <h2>Qualitative Results</h2>
+    <figure>
+      <img src="assets/multimodal.png" loading="lazy"
+           alt="Generated RGB frames with corresponding depth and semantic maps">
+      <figcaption>Generated RGB, depth, and semantic outputs.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/comparison.png" loading="lazy"
+           alt="V-REG and baselines shown alongside ground truth at four time points">
+      <figcaption>Qualitative comparison on driving video generation.</figcaption>
+    </figure>
+
+    <!-- 上传 assets/scene-01.mp4 后，取消下面这段注释。
+    <figure>
+      <video controls playsinline preload="metadata" src="assets/scene-01.mp4"></video>
+      <figcaption>Multi-view driving video generated by V-REG.</figcaption>
+    </figure>
+    -->
+  </section>
+
+  <section id="results">
+    <h2>Quantitative Results on nuScenes</h2>
+
+    <h3>Generation Quality</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Method</th><th>FID ↓</th><th>FVD ↓</th></tr></thead>
+        <tbody>
+          <tr><td>MaskGWM (multi-view)</td><td>8.90</td><td>65.40</td></tr>
+          <tr><td>UniMLVG</td><td><strong>5.80</strong></td><td><strong>36.10</strong></td></tr>
+          <tr><td>MoVieDrive</td><td>—</td><td>46.80</td></tr>
+          <tr><td>V-REG (submitted)</td><td>8.98</td><td>98.75</td></tr>
+          <tr class="ours"><td>V-REG (corrected inference)</td><td><u>7.59</u></td><td><u>43.38</u></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Scene Controllability</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Method</th><th>Synthesis resolution</th><th>mAP ↑</th><th>mIoU ↑</th></tr></thead>
+        <tbody>
+          <tr><td>MagicDrive</td><td>224×400</td><td>9.70</td><td>15.60</td></tr>
+          <tr><td>MagicDrive-V2</td><td>224×400</td><td>11.50</td><td>17.40</td></tr>
+          <tr><td>MoVieDrive</td><td>512×256</td><td><u>22.70</u></td><td><strong>35.80</strong></td></tr>
+          <tr class="ours"><td>V-REG (ours)</td><td>448×800</td><td><strong>22.74</strong></td><td><u>35.31</u></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>
