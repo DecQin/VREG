@@ -311,6 +311,162 @@
     });
   </script>
 
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-2" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, rainy"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0015.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0018.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0026.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-2');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-2', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-3" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"night time"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0050.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0059.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/0_0064.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-3');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-3', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
 
   <footer class="footer">
     <div class="container">
