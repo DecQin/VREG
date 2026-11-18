@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>V-REG | Supplementary Results</title>
+<style>
+:root{color-scheme:light;--ink:#172a2a;--muted:#4a6262;--rule:#cedbd5;--accent:#146655;--paper:#f6f8f4}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,sans-serif}main{max-width:920px;margin:auto;padding:64px 24px}header{padding-bottom:30px;border-bottom:1px solid var(--rule)}h1,h2,p{margin:0}h1{font:700 clamp(44px,9vw,76px)/1 system-ui;letter-spacing:-.08em}h2{font-size:25px;letter-spacing:-.035em;margin-bottom:12px}header p{margin-top:14px;color:var(--muted);max-width:600px}nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px}a{color:var(--accent);text-underline-offset:4px}section{margin-top:36px}.panel{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:20px;overflow:auto}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--rule)}th:not(:first-child),td:not(:first-child){text-align:right;white-space:nowrap}tbody tr:last-child td{border-bottom:0}tr.result{color:#104e42;background:#e6f2ec}.note{color:var(--muted);font-size:14px;margin-top:12px}footer{margin-top:44px;border-top:1px solid var(--rule);padding-top:14px;color:var(--muted);font-size:14px}@media(max-width:520px){main{padding:34px 15px}.panel{padding:12px}}
+</style>
+</head>
+<body><main>
+<header><h1>V-REG</h1><p>Supplementary results for anonymous review</p>
+<nav aria-label="Results"><a href="#quality">Generation quality</a><a href="#control">Scene controllability</a></nav></header>
+<section id="quality"><h2>Generation quality on nuScenes</h2><div class="panel">
+<table><thead><tr><th scope="col">Method</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead><tbody>
+<tr><td>MaskGWM (multi-view)</td><td>8.90</td><td>65.40</td></tr>
+<tr><td>UniMLVG</td><td><strong>5.80</strong></td><td><strong>36.10</strong></td></tr>
+<tr><td>MoVieDrive</td><td>—</td><td>46.80</td></tr>
+<tr><td>V-REG (submitted)</td><td>8.98</td><td>98.75</td></tr>
+<tr class="result"><td>V-REG (corrected inference)</td><td><u>7.59</u></td><td><u>43.38</u></td></tr>
+</tbody></table></div></section>
+<section id="control"><h2>Scene controllability on nuScenes</h2><div class="panel">
+<table><thead><tr><th scope="col">Method</th><th scope="col">Synthesis resolution</th><th scope="col">3D Detection mAP ↑</th><th scope="col">BEV Segmentation mIoU ↑</th></tr></thead><tbody>
+<tr><td>MagicDrive</td><td>224×400</td><td>9.70</td><td>15.60</td></tr>
+<tr><td>MagicDrive-V2</td><td>224×400</td><td>11.50</td><td>17.40</td></tr>
+<tr><td>MoVieDrive</td><td>512×256</td><td><u>22.70</u></td><td><strong>35.80</strong></td></tr>
+<tr class="result"><td>V-REG (ours)</td><td>448×800</td><td><strong>22.74</strong></td><td><u>35.31</u></td></tr>
+</tbody></table>
+</div></section>
+<!-- Optional: upload an anonymized result clip to assets/scene-01.mp4,
+then remove the comment markers around this block.
+<section id="videos"><h2>Qualitative results</h2>
+<video controls playsinline preload="metadata" style="width:100%" src="assets/scene-01.mp4"></video>
+</section>
+-->
+</main></body></html>
