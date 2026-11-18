@@ -209,6 +209,91 @@
 	    width: 100%;
 	    height: auto;
 	  }
+
+		/* 保留轮播轨道，只显示当前可视区 */
+	  body #results-4 {
+	    position: relative;
+	    width: 100%;
+	    min-width: 0;
+	    overflow: hidden;
+	    border-radius: 8px;
+	  }
+	
+	  body #results-4 .item > p {
+	    margin: 0;
+	    padding: 10px 0;
+	    font-size: 17px !important;
+	    text-align: center;
+	  }
+	
+	  body #results-4 video {
+	    display: block;
+	    width: 100%;
+	    height: auto;
+	  }
+
+	  body #results-5 {
+	    position: relative;
+	    width: 100%;
+	    min-width: 0;
+	    overflow: hidden;
+	    border-radius: 8px;
+	  }
+	
+	  body #results-5 .item > p {
+	    margin: 0;
+	    padding: 10px 0;
+	    font-size: 17px !important;
+	    text-align: center;
+	  }
+	
+	  body #results-5 video {
+	    display: block;
+	    width: 100%;
+	    height: auto;
+	  }
+
+		body #results-6 {
+	    position: relative;
+	    width: 100%;
+	    min-width: 0;
+	    overflow: hidden;
+	    border-radius: 8px;
+	  }
+	
+	  body #results-6 .item > p {
+	    margin: 0;
+	    padding: 10px 0;
+	    font-size: 17px !important;
+	    text-align: center;
+	  }
+	
+	  body #results-6 video {
+	    display: block;
+	    width: 100%;
+	    height: auto;
+	  }
+
+		body #results-7 {
+	    position: relative;
+	    width: 100%;
+	    min-width: 0;
+	    overflow: hidden;
+	    border-radius: 8px;
+	  }
+	
+	  body #results-7 .item > p {
+	    margin: 0;
+	    padding: 10px 0;
+	    font-size: 17px !important;
+	    text-align: center;
+	  }
+	
+	  body #results-7 video {
+	    display: block;
+	    width: 100%;
+	    height: auto;
+	  }
 	
 	  body > .footer {
 	    text-align: center;
@@ -281,10 +366,322 @@
     </div>
   </section>
 
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Multi-modal generation results, including RGB videos, panoramic depth maps, and semantic maps with traj. control</h2>
+        <div id="results-4" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"go straight"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/go1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"go straight"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/go2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"go straight"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/go3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-4');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-4', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-5" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"stop"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/stop1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"stop"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/stop2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"stop"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/stop3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-5');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-5', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-6" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn left"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/left1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn left"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/left2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn left"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/left3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-6');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-6', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+	<section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-7" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn right"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/right1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn right"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/right2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"turn right"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source src="./assets/right3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-7');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-7', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
   <section class="hero is-small">
     <div class="hero-body">
       <div class="container">
-        <h2 class="title is-3">Multi-modal generation results, including RGB videos, panoramic depth maps, and semantic maps</h2>
+        <h2 class="title is-3">More generation results in different scenes.</h2>
         <div id="results-1" class="carousel results-carousel">
           <div class="item">
             <p class="content has-text-centered is-size-5">
