@@ -1,229 +1,553 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
+
 <head>
   <meta charset="utf-8">
+  <meta name="description" content="V-REG: Visual Representation Guidance for Training-Efficient Multi-View Driving Video Generation">
+  <meta name="keywords" content="V-REG, multi-view generation, video, multi-modal generation, DiT">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <title>V-REG | Anonymous Project Page</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; color: #202a30; background: #fff;
-           font: 16px/1.65 system-ui, sans-serif; }
-    main { max-width: 1040px; margin: auto; padding: 0 24px 64px; }
-    header { text-align: center; padding: 64px 0 36px;
-             border-bottom: 1px solid #dbe5e1; }
-    h1 { margin: 0 auto; max-width: 900px;
-         font-size: clamp(30px, 5vw, 52px); line-height: 1.15; }
-    header p, figcaption { color: #54666b; }
-    nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-    nav a { color: #145d4d; background: #edf5f1; padding: 6px 13px;
-            border-radius: 20px; text-decoration: none; }
-    nav a:hover { text-decoration: underline; }
-    section { margin: 44px 0; }
-    figure { margin: 0 0 24px; text-align: center; }
-    img, video { display: block; max-width: 100%; height: auto; margin: auto; }
-    figcaption { margin-top: 8px; }
-    .table-wrap { overflow-x: auto; margin-bottom: 28px; }
-    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-    th, td { padding: 10px 14px; text-align: right; border-bottom: 1px solid #dbe5e1; }
-    th:first-child, td:first-child { text-align: left; }
-    thead { background: #f2f6f4; }
-    .ours { background: #e9f4ee; }
-  </style>
+  <title>V-REG: Visual Representation Guidance for Training-Efficient Multi-View Driving Video Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <script src="./static/js/jquery-3.2.1.min.js"></script>
+  <script defer="" src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/jquery.event.move.js"></script> 
+
+  <!-- <link rel="stylesheet" href="./static/css/index.css"> -->
+  <!-- <link rel="icon" href="./images/"> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script>
+    $(document).ready(function () {
+      var int = setInterval(fixCount, 100);
+      var busuanziSiteOffset = parseInt(0);
+      function fixCount() {
+        if ($("#busuanzi_container_page_pv").css("display") != "none") {
+          clearInterval(int);
+          $("#busuanzi_value_page_pv").html(
+            parseInt($("#busuanzi_value_page_pv").html()) + busuanziSiteOffset
+          );
+        }
+      }
+    });
+  </script>
+  <style type="text/css">
+		[mt_node=trans_loading]::after{
+		content: '';
+		vertical-align: middle !important;
+		width: 1em !important;
+		height: 1em !important;
+		display: inline-block !important;
+		margin: 0 4px !important;
+		border: 2px rgba(0, 0, 0, 0.25) solid !important;
+		border-top: 2px rgba(0, 0, 0, 1) solid !important;
+		border-radius: 50% !important;
+		padding: 0 !important;
+		-webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+		animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+		}
+
+		@keyframes immersive-translate-loading-animation {
+			from {
+				transform: rotate(0deg,0deg,0deg);
+			}
+			to {
+				transform: rotate(359deg,0deg,0deg);
+			}
+		}
+	</style>
+  <style type="text/css">[mt_node^=trans]{display: none !important;}</style>
+
 </head>
+
 <body>
-<main>
-  <header>
-    <h1>V-REG: Visual Representation Guidance for Training-Efficient Multi-View Driving Video Generation</h1>
-    <p>Anonymous Authors</p>
-  </header>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
 
-  <section id="abstract">
-    <h2>Abstract</h2>
-    <p>Multi-view driving video generation requires modeling complex temporal, crossview, and multimodal scene structures, leading to expensive task-specific optimization. We propose V-REG, a pretrained visual representation-guided framework that accelerates the adaptation of a multi-view diffusion transformer while largely preserving its original generation pathway. V-REG introduces frame-view aligned representation entanglement and intermediate feature alignment, associating each pretrained representation with the corresponding frame and camera view. Frozen DINOv3 features serve as both conditioning signals and alignment targets during training; at inference, only one-shot condition encoding is retained, and a KV cache mechanism is employed to accelerate multi-frame autoregressive generation by reusing cached attention states from previous frames. Experiments on nuScenes show that V-REG achieves 8.98 FID and 98.75 FVD after 30K taskspecific optimization steps. At the matched FID of 11.3, it requires approximately 4.5 times fewer optimization iterations than the corresponding baseline.</p>
+            <h1 class="title is-1 publication-title">
+              V-REG: Visual Representation Guidance for Training-Efficient Multi-View Driving Video Generation            </h1>
+            <div class="is-size-4 publication-authors">
+              <span class="author-block">Anonymous Authors</span>
+            </div>
+
+            <div class="is-size-4 publication-authors">
+              <span class="author-block">Anonymous Affiliations</span>
+            </div>
+
+            <div class="column has-text-centered">
+                
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span> -->
+                <!-- Arxiv Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2412.04842" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/SenseTime-FVG/OpenDWM"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="method">
-    <h2>Framework: Architecture of V-REG</h2>
-    <figure>
-      <img src="assets/framework.png" alt="Architecture of V-REG">
-      <p style="text-align: left;">
-      We train a multimodal latent diffusion model conditioned on reference
-      observations and geometric trajectory information, where V-REG enhances
-      the DiT-based multi-view video generation framework by incorporating
-      pretrained visual representation guidance. As illustrated in Figure 2,
-      V-REG consists of three components: multimodal condition encoding for
-      constructing structured generation tokens, a DiT-based backbone for latent
-      video denoising, and a frame-aligned REG module combining condition
-      injection with training-only representation alignment.
-      </p>
-    </figure>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered" style="background-color: #f5f5f5;">
+        <div class="column is-five-sixths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+                Multi-view driving video generation requires modeling complex temporal, crossview, and multimodal scene structures, leading to expensive task-specific optimization. We propose V-REG, a pretrained visual representation-guided framework that accelerates the adaptation of a multi-view diffusion transformer while largely preserving its original generation pathway. V-REG introduces frame-view aligned representation entanglement and intermediate feature alignment, associating each pretrained representation with the corresponding frame and camera view. Frozen DINOv3 features serve as both conditioning signals and alignment targets during training; at inference, only one-shot condition encoding is retained, and a KV cache mechanism is employed to accelerate multi-frame autoregressive generation by reusing cached attention states from previous frames. Experiments on nuScenes show that V-REG achieves 8.98 FID and 98.75 FVD after 30K taskspecific optimization steps. At the matched FID of 11.3, it requires approximately 4.5 times fewer optimization iterations than the corresponding baseline. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+    </div>
   </section>
 
-  <!-- <section id="examples">
-    <h2>Multi-modal generation results, including RGB videos, panoramic depth maps, and
-semantic maps</h2>
-    <figure>
-      <img src="assets/multimodal.png" loading="lazy"
-           alt="Generated RGB frames with corresponding depth and semantic maps">
-      <figcaption>Generated RGB, depth, and semantic outputs.</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/comparison.png" loading="lazy"
-           alt="V-REG and baselines shown alongside ground truth at four time points">
-      <figcaption>Qualitative comparison on driving video generation.</figcaption>
-    </figure>
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
 
-    <!-- 上传 assets/scene-01.mp4 后，取消下面这段注释。
-    <figure>
-      <video controls playsinline preload="metadata" src="assets/scene-01.mp4"></video>
-      <figcaption>Multi-view driving video generated by V-REG.</figcaption>
-    </figure>
-    -->
+        <h2 class="title is-3">Framework: Extend MM-DiT to Multi-modal Multi-view Video Generation</h2>
+        <div class="columns is-centered has-text-centered">
+          <img src="./img/framework.png" alt="architecture of UniMLVG" width="90%">
+        </div>
+        <p class="content has-text-left is-size-5">
+          We train a multimodal latent diffusion model conditioned on reference observations and geometric trajectory information, where <b>V-REG</b> enhances the DiT-based multi-view video generation framework by incorporating pretrained visual representation guidance. As illustrated in Figure above, <b>V-REG</b> consists of three components: multimodal condition encoding for constructing structured generation tokens, a DiT-based backbone for latent video denoising, and a frame-aligned REG module combining condition injection with training-only representation alignment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-max-desktop">
+          <div class="column has-text-centered">
+            <span style="max-width:fit-content;margin:auto">
+              <h2 class="title is-4">
+                Generated videos on this page are
+                <span style="color: brown;">20s</span> at
+                <span style="color: brown;">12 FPS</span> through <span style="color:
+              brown;">autoregression</span> on validation datasets!
+              </h2>
+              <h2 class="title is-5">
+                Each video is divided into four rows: the first row represents the <u><i>Ground Truth</i></u>, the second row shows the <u><i>3Dboxes</i></u> condition, the third row displays the <u><i>HDmaps</i></u> condition, and the last row presents <u><i>our generated results</i></u>.
+              </h2>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section> -->
-  <section id="video-demo">
-  <h2>Multi-modal generation results, including RGB videos, panoramic depth maps, and
-semantic maps</h2>
 
-  <div class="video-carousel">
-    <p class="scene-title" aria-live="polite"></p>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Multi-modal generation results, including RGB videos, panoramic depth maps, and semantic maps</h2>
+        <div id="results-1" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./assets/0_0004.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./assets/0_0014.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./assets/0_0027.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-1');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-1', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to load video source
+      function loadVideo(videoElement) {
+        const source = videoElement.querySelector('source');
+        if (source.dataset.src && !source.src) {
+          source.src = source.dataset.src;
+          videoElement.load();
+        }
+      }
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              loadVideo(video);
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
 
-    <div class="video-stage">
-      <video controls playsinline preload="metadata"></video>
-      <button class="video-arrow previous" type="button"
-              aria-label="Previous video">‹</button>
-      <button class="video-arrow next" type="button"
-              aria-label="Next video">›</button>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Generation <u>Without</u> Reference Frames</h2>
+        <div id="results-2" class="carousel results-carousel">
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, sunny"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/unref/11.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"daytime, rainy"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/unref/0.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <p class="content has-text-centered is-size-5">
+              <i>"night time"</i>
+            </p>
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/unref/7.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-2');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-2', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to load video source
+      function loadVideo(videoElement) {
+        const source = videoElement.querySelector('source');
+        if (source.dataset.src && !source.src) {
+          source.src = source.dataset.src;
+          videoElement.load();
+        }
+      }
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              loadVideo(video);
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Snowy Scene Generation Based on <u>Text Editing</u></h2>
+        <div id="results-3" class="carousel results-carousel">
+          <div class="item">
+            <!-- <p class="content has-text-centered is-size-5">
+              <i>"sunny" -> "snowy"</i>
+            </p> -->
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/snow/4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <!-- <p class="content has-text-centered is-size-5">
+              <i>"sunny" -> "snowy"</i>
+            </p> -->
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/snow/0.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <!-- <p class="content has-text-centered is-size-5">
+              <i>"sunny" -> "snowy"</i>
+            </p> -->
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/snow/8.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-3');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-3', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to load video source
+      function loadVideo(videoElement) {
+        const source = videoElement.querySelector('source');
+        if (source.dataset.src && !source.src) {
+          source.src = source.dataset.src;
+          videoElement.load();
+        }
+      }
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              loadVideo(video);
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Realistic Scene Generation Based on <u>CARLA conditions</u>.
+        <div id="results-4" class="carousel results-carousel">
+          <div class="item">
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/carla/town04.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/carla/town05.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video playsinline controls preload="none" muted loop width="100%">
+              <source data-src="./video/carla/town10hd_10.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carouselElement = document.querySelector('#results-4');
+      const items = carouselElement.querySelectorAll('.item');
+  
+      // Initialize the carousel with autoplay
+      const carousel = bulmaCarousel.attach('#results-4', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: false,
+        autoplay: false,
+        breakpoints: [],
+      })[0];
+  
+      // Function to load video source
+      function loadVideo(videoElement) {
+        const source = videoElement.querySelector('source');
+        if (source.dataset.src && !source.src) {
+          source.src = source.dataset.src;
+          videoElement.load();
+        }
+      }
+  
+      // Function to handle video play/pause
+      function handleVideos(bulmaCarouselInstance) {
+        if (bulmaCarouselInstance && bulmaCarouselInstance.next) {
+          currentIndex = bulmaCarouselInstance.next
+        } else {
+          currentIndex = 0
+        }
+        items.forEach((item, index) => {
+          const videos = item.querySelectorAll('video');
+          videos.forEach(video => {
+            if (index === currentIndex) {
+              loadVideo(video);
+              video.currentTime = 0; // Reset to start
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }
+  
+      // Listen for carousel slide changes
+      carousel.on('after:show', function (bulmaCarouselInstance) {
+        handleVideos(bulmaCarouselInstance);
+      });
+  
+      // Initial load
+      handleVideos();
+    });
+  </script>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="content">
+          <h2 class="title is-3 has-text-centered">Please check our paper for more details and results!
+          </h2>
+        </div>
+      </div>
     </div>
 
-    <div class="video-dots" role="group" aria-label="Choose a video"></div>
-  </div>
-</section>
+    <div class="container">
+      <div class="columns is-centered">
+          <p class="text-justify">
+          The website template is borrowed from <a href="https://gaoruiyuan.com/magicdrivedit/">MagicDriveDiT</a>
+          </p>
+      </div>
+    </div>
+  </footer>
 
-<style>
-  #video-demo .video-carousel {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-  }
-
-  #video-demo .scene-title {
-    margin: 0;
-    padding: 10px;
-    text-align: center;
-    font-style: italic;
-    color: #555;
-  }
-
-  #video-demo .video-stage {
-    position: relative;
-    background: #111;
-  }
-
-  #video-demo video {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  #video-demo .video-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    color: #333;
-    font-size: 30px;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  #video-demo .previous { left: 10px; }
-  #video-demo .next { right: 10px; }
-
-  #video-demo .video-dots {
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    background: #111;
-  }
-
-  #video-demo .video-dots button {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  #video-demo .video-dots button::before {
-    content: "";
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #888;
-  }
-
-  #video-demo .video-dots button[aria-current="true"]::before {
-    background: #fff;
-    transform: scale(1.3);
-  }
-</style>
-
-<script>
-  (() => {
-    const scenes = [
-      { title: "Daytime, Sunny",
-        src: "assets/0_0004.mp4" },
-      { title: "Daytime, Sunny", src: "assets/0_0014.mp4" },
-      { title: "Daytime, Sunny", src: "assets/0_0027.mp4" }
-    ];
-
-    const carousel = document.querySelector("#video-demo");
-    const video = carousel.querySelector("video");
-    const title = carousel.querySelector(".scene-title");
-    const dots = carousel.querySelector(".video-dots");
-    let current = 0;
-
-    function showScene(index) {
-      current = (index + scenes.length) % scenes.length;
-      video.pause();
-      video.src = scenes[current].src;
-      title.textContent = scenes[current].title;
-
-      dots.querySelectorAll("button").forEach((dot, i) => {
-        dot.setAttribute("aria-current", String(i === current));
-      });
-    }
-
-    scenes.forEach((scene, i) => {
-      const dot = document.createElement("button");
-      dot.type = "button";
-      dot.setAttribute("aria-label", `Show ${scene.title}`);
-      dot.addEventListener("click", () => showScene(i));
-      dots.appendChild(dot);
-    });
-
-    carousel.querySelector(".previous").addEventListener("click", () => {
-      showScene(current - 1);
-    });
-    carousel.querySelector(".next").addEventListener("click", () => {
-      showScene(current + 1);
-    });
-
-    showScene(0);
-  })();
-</script>
-
-</main>
 </body>
+
 </html>
